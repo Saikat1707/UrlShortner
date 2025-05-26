@@ -8,7 +8,7 @@ const saveURL = async (url,code)=>{
         }
         const entry = await urlModel.create({
             originalUrl:url,
-            shortCode:code
+            shortCode:code,
         })
         return entry.shortCode
     } catch (error) {
@@ -17,4 +17,21 @@ const saveURL = async (url,code)=>{
     
 }
 
-export default {saveURL}
+const saveURLWithUser = async(url,code,userId)=>{
+    try {
+        const isExist = await urlModel.findOne({shortCode:code})
+        if(isExist){
+            return null
+        }
+        const entry = await urlModel.create({
+            originalUrl:url,
+            shortCode:code,
+            userId:userId
+        })
+        return entry.shortCode
+    } catch (error) {
+        throw error
+    }
+}
+
+export default {saveURL,saveURLWithUser}

@@ -9,17 +9,17 @@ const createUser = async(req,res)=>{
         if(!entry){
             return res.status(400).json({
                 success:false,
-                message:"User already exist with this email"
+                data:"User already exist with this email"
             })
         }
         return res.status(200).json({
             success:true,
-            message:entry
+            data:entry
         })
     } catch (error) {
         return res.status(400).json({
             success:false,
-            message:error
+            data:error
         })
     }
 }
@@ -30,13 +30,13 @@ const loginUser = async (req,res)=>{
         if(!user){
             return res.status(400).json({
                 success:false,
-                message:"No User exist with this email"
+                data:"No User exist with this email"
             })
         }
         if(user.password != password){
             return res.status(400).json({
                 success:false,
-                message:"Invalid login credentials"
+                data:"Invalid login credentials"
             })
         }
         const token = generateToken(user._id)
@@ -44,12 +44,12 @@ const loginUser = async (req,res)=>{
 
         return res.status(200).json({
             success:true,
-            message:user
+            data:user
         })
     } catch (error) {
         return res.status(400).json({
             success:false,
-            message:error
+            data:error
         })
     }
 }
@@ -60,12 +60,12 @@ const logoutUser = async (req,res)=>{
 
         return res.status(200).json({
             success: true,
-            message: "User logged out successfully"
+            data: "User logged out successfully"
         });
     } catch (error) {
         return res.status(400).json({
             success: false,
-            message: error.message || "Logout failed"
+            data: error.message || "Logout failed"
         });
     }
 }

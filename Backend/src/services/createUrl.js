@@ -11,13 +11,23 @@ export const createUrl = async (url)=>{
     }
 }
 
-export const createUrlWithUser = async (url,slag) => {
+export const createUrlWithUser = async (url,slag,userId) => {
     try {
-        const shortCode = await UrlHandler.saveURL(url,slag)
+        const shortCode = await UrlHandler.saveURLWithUser(url,slag,userId)
         if(!shortCode){
             return null
         }
         return shortCode
+    } catch (error) {
+        throw error
+    }
+}
+
+export const createUrlWithoutSlag = async(url,userId)=>{
+    try {
+       const code = generate()
+       const shortCode = await UrlHandler.saveURLWithUser(url,code,userId)
+       return shortCode;
     } catch (error) {
         throw error
     }

@@ -2,7 +2,7 @@ import { response } from "express";
 import saveURL from "../DAO/createEntry.js";
 import generate from "../utils/generateCode.js";
 import redirectURL from "../DAO/redirect.js";
-import { createUrl, createUrlWithUser } from "../services/createUrl.js";
+import { createUrl, createUrlWithUser , createUrlWithoutSlag } from "../services/createUrl.js";
 
 
 const create = async (req,res)=>{
@@ -13,9 +13,9 @@ const create = async (req,res)=>{
             message:"URL is missing"
         })
     }
-    if(slag){
-        if(req.user){
-            const shortCode = await createUrlWithUser(url,slag)
+    if(req.user){
+        if(slag){
+            const shortCode = await createUrlWithUser(url,slag,req.user._id)
             if(!shortCode){
                 return res.status(400).json({
                     success:false,
@@ -27,13 +27,26 @@ const create = async (req,res)=>{
                 data:process.env.BACKEND_URL+shortCode
                 })
             }
-        }else{
+        }
+        try {
+            const shortCode = await createUrlWithoutSlag(url,req.user._id)
+            return res.status(200).json({
+            success:true,
+            data:process.env.BACKEND_URL+shortCode
+            })
+        } catch (error) {
+            return res.status(400).json({
+            success:false,
+            message:error
+            })
+        }
+    }else{
+        if(slag){
             return res.status(400).json({
                 success:false,
                 message:"User must be logged in to create custom url"
             })
         }
-    }else{
         try {
             const shortCode = await createUrl(url)
             return res.status(200).json({
