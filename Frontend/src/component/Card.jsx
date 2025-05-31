@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import create from "../axios/createUrl";
+import {toast} from 'react-toastify'
 
 const Card = () => {
   const [url, setUrl] = useState("");
@@ -11,11 +12,12 @@ const Card = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await create(url, customAlias); // You must support customAlias in your backend
+      const data = await create(url, customAlias);
       setShortUrl(data);
       setErrorMessage("");
     } catch (err) {
-      setErrorMessage("❌ Failed to generate short URL. Please try again.");
+      const message = err?.response?.data?.data ||err?.response?.data?.message ||err?.message ||"Something went wrong!";
+      toast.error(message)
       setShortUrl("");
     }
   };
@@ -63,7 +65,7 @@ const Card = () => {
 
           <button
             type="submit"
-            className="bg-gradient-to-r from-[#D4BEE4] to-[#9B7EBD] text-[#3B1E54] font-bold py-3 rounded-xl hover:from-[#9B7EBD] hover:to-[#3B1E54] hover:text-white transition-all duration-300 shadow-lg"
+            className="bg-gradient-to-r cursor-pointer from-[#D4BEE4] to-[#9B7EBD] text-[#3B1E54] font-bold py-3 rounded-xl hover:from-[#9B7EBD] hover:to-[#3B1E54] hover:text-white transition-all duration-300 shadow-lg"
           >
             🚀 Generate Short URL
           </button>
