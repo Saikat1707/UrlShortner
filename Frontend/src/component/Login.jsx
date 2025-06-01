@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import {loginUser} from "../axios/authUser"
 import {toast} from "react-toastify"
+import { Link, useRouter } from '@tanstack/react-router';
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const router = useRouter()
     const handleSubmit = async (e)=>{
         e.preventDefault()
         try {
@@ -12,6 +13,7 @@ const Login = () => {
             setEmail("")
             setPassword("")
             toast.success("User logged in successfully! 🎉")
+            router.navigate({ to: '/' });
         } catch (error) {
             toast.error(error)
         }
@@ -74,7 +76,7 @@ const Login = () => {
 
         {/* Bottom Text */}
         <p className="text-sm text-center text-gray-500">
-          Don’t have an account? <a href="#" className="text-[#3B1E54] font-medium hover:underline">Sign up</a>
+          Don’t have an account? <Link to="/register" className="text-[#3B1E54] font-medium hover:underline">Sign up</Link>
         </p>
       </div>
     </div>

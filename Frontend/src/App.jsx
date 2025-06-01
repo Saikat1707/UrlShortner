@@ -4,7 +4,7 @@ import Card from './component/Card'
 import NavBar from './component/NavBar'
 import Login from './component/Login'
 import Register from './component/Register'
-
+import {Outlet} from '@tanstack/react-router'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -24,9 +24,10 @@ const App = () => {
       />
       
       <NavBar/>
-      <Card/>
+      {/* <Card/>
       <Login/>
-      <Register/>
+      <Register/> */}
+      <Outlet/>
     </>
   )
 }

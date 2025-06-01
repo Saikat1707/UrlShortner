@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import {createUser} from '../axios/authUser'
 import {toast} from 'react-toastify'
+import { Link, useRouter } from '@tanstack/react-router';
 const Register = () => {
     const [userName, setUserName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const router = useRouter()
     const handleSubmit = async (e)=>{
         e.preventDefault()
         try {
@@ -15,6 +16,7 @@ const Register = () => {
             setUserName("")
             setPassword("")
             setErrorMessage("")
+            router.navigate({to:'/login'})
         } catch (error) {
             toast.error(error)
         }
@@ -98,7 +100,7 @@ const Register = () => {
 
         {/* Bottom Text */}
         <p className="text-sm text-center text-gray-500">
-          Already have an account? <a href="#" className="text-[#3B1E54] font-medium hover:underline">Login</a>
+          Already have an account? <Link to="/login" className="text-[#3B1E54] font-medium hover:underline">Log in</Link>
         </p>
       </div>
     </div>

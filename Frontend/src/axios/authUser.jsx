@@ -21,3 +21,12 @@ export const loginUser = async (email,password)=>{
     })
 }
 
+export const logOutUser = async ()=>{
+    await axiosInstance.post("/api/auth/logout")
+    .then((res)=>{
+        console.log(res.data.data)
+    })
+    .catch((error)=>{
+        throw error.response?.data?.data || "Backend error"
+    })
+}
