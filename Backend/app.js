@@ -15,8 +15,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 const allowedOrigins = [
-  'https://url-shortner-mocha-tau.vercel.app',  // e.g., https://yourdomain.com
-  'http://localhost:5173',   // optionally keep for local dev
+  'https://url-shortner-mocha-tau.vercel.app',
+  'http://localhost:5173',
 ];
 
 app.use(cors({
