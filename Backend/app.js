@@ -14,10 +14,22 @@ await connectDB();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+const allowedOrigins = [
+  'https://url-shortner-mocha-tau.vercel.app',  // e.g., https://yourdomain.com
+  'http://localhost:5173',   // optionally keep for local dev
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
+
 app.use(cookieParser())
 app.use(morgan('dev'));
 
