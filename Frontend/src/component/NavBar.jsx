@@ -27,7 +27,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
+    <nav className="w-full bg-white shadow-md  top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex justify-between items-center">
         {/* Logo */}
         <h1 className="text-2xl font-bold text-[#3B1E54] tracking-wide">
