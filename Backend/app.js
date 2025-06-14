@@ -15,12 +15,12 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 
+
+app.use(cookieParser())
 app.use(cors({
   origin: "https://url-shortner-mocha-tau.vercel.app",
   credentials: true,
 }));
-
-app.use(cookieParser())
 app.use(morgan('dev'));
 
 
