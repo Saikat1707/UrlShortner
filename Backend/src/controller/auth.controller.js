@@ -40,7 +40,7 @@ const loginUser = async (req,res)=>{
             })
         }
         const token = generateToken(user._id)
-        res.cookie("accessToken",token,getCookieOptions)
+        res.cookie("accessToken",token)
 
         return res.status(200).json({
             success:true,
