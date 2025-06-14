@@ -12,6 +12,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("form submitting")
     try {
       await loginUser(email, password);
       setEmail("");
