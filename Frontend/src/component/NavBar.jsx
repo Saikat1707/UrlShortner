@@ -5,24 +5,23 @@ import { toast } from 'react-toastify';
 import { useUserContext } from '../context/userContext.jsx';
 
 const NavBar = () => {
-  const {user,setUser} = useUserContext();
+  const {user,fetchUser,isLogin,setIsLogin} = useUserContext();
   const [isLogged, setIsLogged] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    if(user){
-      setIsLogged(true)
-    }
+   fetchUser()
+   setIsLogged(isLogin)
   }, []);
 
   const handleLogOut = async () => {
     try {
       await logOutUser();
+      setIsLogin(false)
       toast.success('User Logged out successfully');
-      setIsLogged(false);
+      setIsLogged(isLogin);
       setMenuOpen(false);
-      setUser(null)
     } catch (err) {
       toast.error('Problem in logging out');
     }

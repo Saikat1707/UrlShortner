@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import {loginUser} from "../axios/authUser"
 import {toast} from "react-toastify"
 import { Link, useRouter } from '@tanstack/react-router';
+import { useUserContext } from '../context/userContext';
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const router = useRouter()
+    const {fetchUser} = useUserContext()
     const handleSubmit = async (e)=>{
         e.preventDefault()
         try {
             await loginUser(email,password)
             setEmail("")
             setPassword("")
+            fetchUser()
             toast.success("User logged in successfully! 🎉")
             router.navigate({ to: '/' });
         } catch (error) {
