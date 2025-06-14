@@ -69,4 +69,11 @@ const logoutUser = async (req,res)=>{
         });
     }
 }
-export default {createUser,loginUser,logoutUser}
+
+const getCurrentUser = async (req,res)=>{
+    return res.status(201).json({
+        success:true,
+        data:req.user
+    })
+}
+export default {createUser,loginUser,logoutUser,getCurrentUser}
