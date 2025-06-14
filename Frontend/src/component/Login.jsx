@@ -34,7 +34,7 @@ const Login = () => {
         </h2>
         <p className="text-center text-gray-500">Please login to your account</p>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6">
           {/* Email Field */}
           <div className="relative">
             <input
@@ -77,7 +77,8 @@ const Login = () => {
 
           {/* Submit Button */}
           <button
-            type="submit"
+            // type="submit"
+            onClick={handleSubmit}
             className="w-full bg-[#3B1E54] cursor-pointer text-white font-semibold py-3 rounded-xl shadow-md hover:bg-[#4c266b] transition duration-300"
           >
             Log In
