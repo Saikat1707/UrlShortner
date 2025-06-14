@@ -71,9 +71,17 @@ const logoutUser = async (req,res)=>{
 }
 
 const getCurrentUser = async (req,res)=>{
-    return res.status(201).json({
-        success:true,
-        data:req.user
-    })
+    if(req.user){
+        return res.status(201).json({
+            success:true,
+            data:req.user
+        })
+    }else{
+        return res.status(400).json({
+            success:false,
+            data:null
+        })
+    }
+    
 }
 export default {createUser,loginUser,logoutUser,getCurrentUser}
