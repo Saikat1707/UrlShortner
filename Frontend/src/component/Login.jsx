@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
-import {loginUser} from "../axios/authUser"
-import {toast} from "react-toastify"
-import { Link, useRouter } from '@tanstack/react-router';
+import { loginUser } from "../axios/authUser";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from '@tanstack/react-router';
 import { useUserContext } from '../context/userContext';
+
 const Login = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const router = useRouter()
-    const {fetchUser} = useUserContext()
-    const handleSubmit = async (e)=>{
-        e.preventDefault()
-        console.log("Submitting form")
-        try {
-            await loginUser(email,password)
-            setEmail("")
-            setPassword("")
-            fetchUser()
-            toast.success("User logged in successfully! 🎉")
-            router.navigate({ to: '/' });
-        } catch (error) {
-            toast.error(error)
-        }
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { fetchUser } = useUserContext();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await loginUser(email, password);
+      setEmail("");
+      setPassword("");
+      await fetchUser(); // ensure user context is updated
+      toast.success("User logged in successfully! 🎉");
+      navigate({ to: '/' });
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || error.message || "Login failed"
+      );
     }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#3B1E54] to-[#9B7EBD] flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 sm:p-10 space-y-6">
-        <h2 className="text-3xl font-bold text-center text-[#3B1E54]">Welcome Back</h2>
+        <h2 className="text-3xl font-bold text-center text-[#3B1E54]">
+          Welcome Back
+        </h2>
         <p className="text-center text-gray-500">Please login to your account</p>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -36,7 +42,7 @@ const Login = () => {
               id="email"
               name="email"
               value={email}
-              onChange={(e)=>{setEmail(e.target.value)}}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="peer w-full border border-gray-300 text-gray-900 rounded-xl px-4 pt-6 pb-2 focus:outline-none focus:ring-2 focus:ring-[#9B7EBD] focus:border-transparent"
               placeholder=" "
@@ -56,7 +62,7 @@ const Login = () => {
               id="password"
               name="password"
               value={password}
-              onChange={(e)=>{setPassword(e.target.value)}}
+              onChange={(e) => setPassword(e.target.value)}
               required
               className="peer w-full border border-gray-300 text-gray-900 rounded-xl px-4 pt-6 pb-2 focus:outline-none focus:ring-2 focus:ring-[#9B7EBD] focus:border-transparent"
               placeholder=" "
@@ -80,7 +86,13 @@ const Login = () => {
 
         {/* Bottom Text */}
         <p className="text-sm text-center text-gray-500">
-          Don’t have an account? <Link to="/register" className="text-[#3B1E54] font-medium hover:underline">Sign up</Link>
+          Don’t have an account?{' '}
+          <Link
+            to="/register"
+            className="text-[#3B1E54] font-medium hover:underline"
+          >
+            Sign up
+          </Link>
         </p>
       </div>
     </div>
