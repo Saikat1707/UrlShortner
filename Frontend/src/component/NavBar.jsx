@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from '@tanstack/react-router';
 import { logOutUser } from '../axios/authUser.jsx';
 import { toast } from 'react-toastify';
+import { useUserContext } from '../context/userContext.jsx';
 
 const NavBar = () => {
+  const {user} = useUserContext();
   const [isLogged, setIsLogged] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const hasAccessToken = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('accessToken='));
-    setIsLogged(!!hasAccessToken);
-  }, [location]);
+    if(user){
+      setIsLogged(true)
+    }
+  }, []);
 
   const handleLogOut = async () => {
     try {

@@ -24,9 +24,6 @@ const App = () => {
       />
       
       <NavBar/>
-      {/* <Card/>
-      <Login/>
-      <Register/> */}
       <Outlet/>
     </>
   )
