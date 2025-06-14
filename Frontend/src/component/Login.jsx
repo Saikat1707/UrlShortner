@@ -10,6 +10,7 @@ const Login = () => {
     const {fetchUser} = useUserContext()
     const handleSubmit = async (e)=>{
         e.preventDefault()
+        console.log("Submitting form")
         try {
             await loginUser(email,password)
             setEmail("")
