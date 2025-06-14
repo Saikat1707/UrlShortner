@@ -6,7 +6,7 @@ import { useUserContext } from '../context/userContext';
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const {setUser} = useUserContext()
+    const {user,setUser} = useUserContext()
     const router = useRouter()
     const handleSubmit = async (e)=>{
         e.preventDefault()
@@ -15,6 +15,8 @@ const Login = () => {
             setEmail("")
             setPassword("")
             setUser(result.data.data)
+            console.log("Log in User : ")
+            console.log(user)
             toast.success("User logged in successfully! 🎉")
             router.navigate({ to: '/' });
         } catch (error) {
