@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useUserContext } from '../context/userContext.jsx';
 
 const NavBar = () => {
-  const {user} = useUserContext();
+  const {user,setUser} = useUserContext();
   const [isLogged, setIsLogged] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -22,6 +22,7 @@ const NavBar = () => {
       toast.success('User Logged out successfully');
       setIsLogged(false);
       setMenuOpen(false);
+      setUser(null)
     } catch (err) {
       toast.error('Problem in logging out');
     }

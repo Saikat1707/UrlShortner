@@ -1,4 +1,5 @@
 import axiosInstance from "../config/axiosConfig"
+import { useUserContext } from "../context/userContext";
 
 export const createUser = async (userName,email,password)=>{
     await axiosInstance.post("api/auth/register",{userName,email,password})
@@ -12,9 +13,11 @@ export const createUser = async (userName,email,password)=>{
 }
 
 export const loginUser = async (email,password)=>{
+    const {setUser} = useUserContext()
     await axiosInstance.post("api/auth/login",{email,password})
     .then((res)=>{
         console.log(res.data.data)
+        setUser(res.data.data)
     })
     .catch((error)=>{
         throw error.response?.data?.data || "An error occurred";
